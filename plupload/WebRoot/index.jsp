@@ -25,16 +25,14 @@
     flash_swf_url : './js/Moxie.swf',
     silverlight_xap_url : './js/Moxie.xap',
     url : '${pageContext.request.contextPath}/uploadFile.do',//上传文件路径
-    max_file_size : '3gb',//100b, 10kb, 10mb, 1gb
+    max_file_size : '10gb',//100b, 10kb, 10mb, 1gb
     chunk_size : '10mb',//分块大小，小于这个大小的不分块
     unique_names : true,//生成唯一文件名
     browse_button : 'uploader',
     filters: {
       mime_types : [ //只允许上传图片和zip文件
-        { title : "Image files", extensions : "jpg,gif,png" },
-        { title : "Zip files", extensions : "zip" }
+        { title: "files", extensions: "jpg,png,gif,mp4,docx,doc,ppt,pptx,mkv,pdf" }
       ],
-      max_file_size : '400kb', //最大只能上传400kb的文件
       prevent_duplicates : true //不允许选取重复文件
     },
     multipart:true,//为true时将以multipart/form-data的形式来上传文件，为false时则以二进制的格式来上传文件
