@@ -4,8 +4,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>plupload示例</title>
-	<script src="http://cdn.bootcss.com/jquery/1.9.0/jquery.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/plupload.full.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/print.css" />
 
 </head>
 <body>
@@ -14,11 +15,14 @@
 
 	</ul>
 </div>
-<button id="uploader">选择文件</button>
-<button id="start_upload">开始上传</button>
-<div id="progress"></div>
+<button id="uploader" class="btn btn-info">选择文件</button>
+<button id="start_upload" class="btn btn-success">开始上传</button>
 <div id="result"></div>
 </body>
+<script src="http://cdn.bootcss.com/jquery/1.9.0/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/plupload.full.min.js"></script>
 <script type="text/javascript">
   var uploader = new plupload.Uploader({
     runtimes : 'html5,flash,silverlight',//设置运行环境，会按设置的顺序，可以选择的值有html5,gears,flash,silverlight,browserplus,html
@@ -43,20 +47,27 @@
         console.log(up);
         console.log(files);
 
-        var li = '';
-        plupload.each(files, function(file) { //遍历文件
-          li += "<li id='" + file['id'] + "'>" +
-						"<div class='progre'>" +
-						"<span>"+file.name+"</span>" +
-						"<span class='bar'></span>" +
-						"<span class='percent'>上传进度 0%</span>" +
-            "<span class='deleteFile' data-id='" + file['id'] + "'>删除</span>" +
+          var li = '';
+          plupload.each(files, function(file) { //遍历文件
+              li += "<li id='" + file['id'] + "'>" +
 
-            "</div>" +
-						"</li>";
-          //alert(fileType)
-        });
-        $("#ul-file").append(li);
+                  "<span class='name' title='"+file.name+"'>"+file.name+"</span>" +
+                  "<div class='progressContainer'>" +
+                  "<div class='progress progress-striped'>" +
+                  "<div class='progress-bar progress-bar-success' role='progressbar'"+
+                  "aria-valuenow='60' aria-valuemin='0' aria-valuemax='100'"+
+                  "style='width: 0%'>"+
+                  "<span class='percent'>0% 完成（警告）</span>"+
+                  "</div>"+
+                  "</div>" +
+                  "</div>"+
+
+                  "<span class='deleteFile' data-id='" + file['id'] + "'>删除</span>" +
+                  "<span class='finish'  style='display: none'>完成</span>" +
+                  "</li>";
+              //alert(fileType)
+          });
+          $("#ul-file").append(li);
 
         return false;
       },
@@ -69,16 +80,20 @@
         console.log("单独文件上传完毕");
         var response = $.parseJSON(info.response);
         if (response.status) {
-          $('#result').append( $('<div> "文件路径是："' + response.fileUrl + '"随机的文件名字为："' + file.name + '</div>') );
+          //$('#result').append( $('<div> "文件路径是："' + response.fileUrl + '"随机的文件名字为："' + file.name + '</div>') );
         }
       },
       UploadComplete : function( uploader,files ) {
         console.log("所有文件上传完毕");
       },
       UploadProgress : function( uploader,file ) {
-        var percent = file.percent;
-        $("#" + file.id).find('.bar').css({ "width": percent + "%" });
-        $("#" + file.id).find(".percent").text("上传进度 " + percent + "%");
+          var percent = file.percent;
+          if(percent===100){
+              $("#" + file.id).find(".finish").show();
+              $("#" + file.id).find(".deleteFile").hide();
+          }
+          $("#" + file.id).find('.progress-bar').css({ "width": percent + "%" });
+          $("#" + file.id).find(".percent").text(percent + "%");
       }
     }
   });

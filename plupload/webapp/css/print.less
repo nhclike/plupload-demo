@@ -1,0 +1,86 @@
+#uploader{
+margin: 4px 10px;
+}
+.footerBtn{
+  height: 40px;
+  position: fixed;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+
+  #start_upload{
+    /*background: green;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+    padding: 3px 5px;
+
+    margin: 5px 10px;*/
+
+  }
+}
+
+html,body{
+  height: 100%;
+}
+#filelist{
+  position: fixed;
+  top:50px;
+  bottom: 50px;
+  left: 10px;
+  right: 10px;
+  border: 1px solid #ddd;
+  overflow: scroll;
+  #ul-file{
+    li{
+      list-style: none;
+      height: 40px;
+      line-height: 40px;
+      display: flex;
+      align-items: center;
+      .name{
+        flex: 1;
+        display:inline-block;            /*内联对象需加*/
+        word-break:keep-all;      /* 不换行 */
+        white-space:nowrap;       /* 不换行 */
+        overflow:hidden;          /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;   /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+      }
+      .progressContainer{
+        flex: 0 0 150px;
+        width: 150px;
+        height: 40px;
+        align-items: center;
+        display: flex;
+        .progress{
+          width: 100%;
+          margin-bottom: 0px !important;
+          .percent{
+            position: relative;
+            left: 60px;
+            top:0;
+            color: #ddd;
+            height: 20px;
+            width: 70px;
+          }
+        }
+      }
+      .deleteFile{
+        flex: 0 0 60px;
+        width: 60px;
+        cursor: pointer;
+        color: #e4393c;
+        text-align: center;
+      }
+      .finish{
+        flex: 0 0 60px;
+        width: 60px;
+        cursor: pointer;
+        color: #0093f9;
+        text-align: center;
+      }
+
+    }
+  }
+}
+

@@ -70,7 +70,7 @@ public class mainController {
 						if ( item.getFieldName().equals( "name" ) )
 						{
 							tempFileName = item.getString();
-							/* System.out.println("临时文件名：" + tempFileName); */
+							 System.out.println("临时文件名：" + tempFileName);
 						} else if ( item.getFieldName().equals( "chunk" ) )
 						{
 							chunk = Integer.parseInt( item.getString() );
