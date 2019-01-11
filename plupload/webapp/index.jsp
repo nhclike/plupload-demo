@@ -94,7 +94,16 @@
           }
           $("#" + file.id).find('.progress-bar').css({ "width": percent + "%" });
           $("#" + file.id).find(".percent").text(percent + "%");
-      }
+      },
+        Error:function (uploader,info) {
+          console.log("error");
+          console.log(uploader);
+          console.log(info);
+			if(info.code==-602){
+				var errFileName=info.file.name
+              alert(errFileName+"已经存在");
+            }
+        }
     }
   });
 		$("#filelist").on('click','.deleteFile',function () {
